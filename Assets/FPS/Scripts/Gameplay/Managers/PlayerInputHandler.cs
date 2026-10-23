@@ -34,6 +34,7 @@ namespace Unity.FPS.Gameplay
         private InputAction m_CrouchAction;
         private InputAction m_ReloadAction;
         private InputAction m_NextWeaponAction;
+        private InputAction m_DashAction;
 
         void Start()
         {
@@ -55,6 +56,7 @@ namespace Unity.FPS.Gameplay
             m_CrouchAction = InputSystem.actions.FindAction("Player/Crouch");
             m_ReloadAction = InputSystem.actions.FindAction("Player/Reload");
             m_NextWeaponAction = InputSystem.actions.FindAction("Player/NextWeapon");
+            m_DashAction = InputSystem.actions.FindAction("Player/Dash");
             
             m_MoveAction.Enable();
             m_LookAction.Enable();
@@ -65,6 +67,7 @@ namespace Unity.FPS.Gameplay
             m_CrouchAction.Enable();
             m_ReloadAction.Enable();
             m_NextWeaponAction.Enable();
+            m_DashAction.Enable();
         }
 
         void LateUpdate()
@@ -191,6 +194,11 @@ namespace Unity.FPS.Gameplay
             }
 
             return false;
+        }
+
+        public bool GetDashInputDown()
+        {
+            return CanProcessInput() && m_DashAction.WasPressedThisFrame();
         }
 
         public bool GetCrouchInputDown()
