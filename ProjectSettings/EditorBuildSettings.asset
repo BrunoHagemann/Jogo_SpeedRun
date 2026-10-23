@@ -15,6 +15,21 @@ EditorBuildSettings:
     path: Assets/FPS/Scenes/LoseScene.unity
     guid: 72e5c65a45893714484002914e3fd521
   - enabled: 1
+    path: Assets/FPS/Scenes/WinScene 1.unity
+    guid: 88f197babd229ea4493f292d559efb60
+  - enabled: 1
+    path: Assets/FPS/Scenes/WinScene 2.unity
+    guid: 30ef15fea4cee2e43978bd32152ae27a
+  - enabled: 1
+    path: Assets/FPS/Scenes/WinScene 3.unity
+    guid: 7d46091252fd2404e9595ad9a1b0dfa9
+  - enabled: 1
+    path: Assets/FPS/Scenes/4Scene.unity
+    guid: ba6141b45d6e8d74497b3613713e358f
+  - enabled: 1
+    path: Assets/FPS/Scenes/3Scene.unity
+    guid: 9f2584b26f57875478c8fcd0ee17afd2
+  - enabled: 1
     path: Assets/FPS/Scenes/MainScene.unity
     guid: d794a2ef8ba31d847ad3c19d03e2ddb9
   - enabled: 1
