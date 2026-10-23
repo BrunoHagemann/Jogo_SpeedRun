@@ -53,6 +53,16 @@ namespace Unity.FPS.Gameplay
         [Header("Jump")] [Tooltip("Force applied upward when jumping")]
         public float JumpForce = 9f;
 
+        [Header("Dash")]
+        [Tooltip("Distance traveled by a dash")]
+        public float DashDistance = 15f;
+
+        [Tooltip("Duration of a dash in seconds")]
+        public float DashDuration = 0.3f;
+
+        [Tooltip("Cooldown between dashes in seconds")]
+        public float DashCooldown = 2.5f;
+
         [Header("Stance")] [Tooltip("Ratio (0-1) of the character height where the camera will be at")]
         public float CameraHeightRatio = 0.9f;
 
@@ -103,6 +113,7 @@ namespace Unity.FPS.Gameplay
         public bool HasJumpedThisFrame { get; private set; }
         public bool IsDead { get; private set; }
         public bool IsCrouching { get; private set; }
+        public bool IsDashing => m_IsDashing;
 
         public float RotationMultiplier
         {
@@ -129,6 +140,10 @@ namespace Unity.FPS.Gameplay
         float m_CameraVerticalAngle = 0f;
         float m_FootstepDistanceCounter;
         float m_TargetCharacterHeight;
+        Vector3 m_DashDirection;
+        float m_DashElapsedTime;
+        float m_LastDashTime = float.NegativeInfinity;
+        bool m_IsDashing;
 
         const float k_JumpGroundingPreventionTime = 0.2f;
         const float k_GroundCheckDistanceInAir = 0.07f;
@@ -219,6 +234,7 @@ namespace Unity.FPS.Gameplay
         void OnDie()
         {
             IsDead = true;
+            m_IsDashing = false;
 
             // Tell the weapons manager to switch to a non-existing weapon in order to lower the weapon
             m_WeaponsManager.SwitchToWeaponIndex(-1, true);
@@ -287,6 +303,33 @@ namespace Unity.FPS.Gameplay
             }
 
             // character movement handling
+            Vector3 worldspaceMoveInput = transform.TransformVector(m_InputHandler.GetMoveInput());
+            worldspaceMoveInput = Vector3.ProjectOnPlane(worldspaceMoveInput, Vector3.up);
+
+            if (m_InputHandler.GetDashInputDown() && !IsDead && !m_IsDashing &&
+                Time.time >= m_LastDashTime + DashCooldown)
+            {
+                m_DashDirection = worldspaceMoveInput.sqrMagnitude > 0.001f
+                    ? worldspaceMoveInput.normalized
+                    : transform.forward;
+                m_DashDirection = Vector3.ProjectOnPlane(m_DashDirection, Vector3.up).normalized;
+                m_DashElapsedTime = 0f;
+                m_LastDashTime = Time.time;
+                m_IsDashing = true;
+            }
+
+            float dashStepDuration = 0f;
+            Vector3 dashMovement = Vector3.zero;
+            if (m_IsDashing)
+            {
+                float safeDashDuration = Mathf.Max(0.01f, DashDuration);
+                dashStepDuration = Mathf.Min(Time.deltaTime,
+                    Mathf.Max(0f, safeDashDuration - m_DashElapsedTime));
+                dashMovement = m_DashDirection * (Mathf.Max(0f, DashDistance) * dashStepDuration /
+                                                  safeDashDuration);
+                m_DashElapsedTime += dashStepDuration;
+            }
+
             bool isSprinting = m_InputHandler.GetSprintInputHeld();
             {
                 if (isSprinting)
@@ -296,11 +339,15 @@ namespace Unity.FPS.Gameplay
 
                 float speedModifier = isSprinting ? SprintSpeedModifier : 1f;
 
-                // converts move input to a worldspace vector based on our character's transform orientation
-                Vector3 worldspaceMoveInput = transform.TransformVector(m_InputHandler.GetMoveInput());
-
+                // During a dash, keep the captured horizontal direction and continue normal vertical motion.
+                if (m_IsDashing)
+                {
+                    CharacterVelocity = new Vector3(0f, CharacterVelocity.y, 0f);
+                    if (!IsGrounded)
+                        CharacterVelocity += Vector3.down * GravityDownForce * Time.deltaTime;
+                }
                 // handle grounded movement
-                if (IsGrounded)
+                else if (IsGrounded)
                 {
                     // calculate the desired velocity from inputs, max speed, and current slope
                     Vector3 targetVelocity = worldspaceMoveInput * MaxSpeedOnGround * speedModifier;
@@ -371,7 +418,19 @@ namespace Unity.FPS.Gameplay
             // apply the final calculated velocity value as a character movement
             Vector3 capsuleBottomBeforeMove = GetCapsuleBottomHemisphere();
             Vector3 capsuleTopBeforeMove = GetCapsuleTopHemisphere(m_Controller.height);
-            m_Controller.Move(CharacterVelocity * Time.deltaTime);
+            CollisionFlags collisionFlags = m_Controller.Move(CharacterVelocity * Time.deltaTime + dashMovement);
+
+            if (m_IsDashing && (collisionFlags & CollisionFlags.Sides) != 0)
+            {
+                m_IsDashing = false;
+                CharacterVelocity = new Vector3(0f, CharacterVelocity.y, 0f);
+            }
+
+            if (m_IsDashing && m_DashElapsedTime >= Mathf.Max(0.01f, DashDuration))
+            {
+                m_IsDashing = false;
+                CharacterVelocity = new Vector3(0f, CharacterVelocity.y, 0f);
+            }
 
             // detect obstructions to adjust velocity accordingly
             m_LatestImpactSpeed = Vector3.zero;

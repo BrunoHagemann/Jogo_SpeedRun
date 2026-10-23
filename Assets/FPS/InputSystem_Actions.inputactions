@@ -114,6 +114,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "c2392687-fdb8-4757-a4b3-8d7b6211d992",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "NextWeapon",
                     "type": "Value",
                     "id": "076d0fc4-af98-4245-90ac-2800c4473bee",
@@ -572,6 +581,17 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aad90a7e-1fc3-42d5-b01e-5371767b1d90",
+                    "path": "<Keyboard>/leftAlt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
