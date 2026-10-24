@@ -157,7 +157,7 @@ MonoBehaviour:
   WeaponRoot: {fileID: 6118042988634880873}
   WeaponMuzzle: {fileID: 292792245302663249}
   ShootType: 1
-  ProjectilePrefab: {fileID: 8924682559891268397, guid: 3c6b27d949cdda749892906e1f1d1b27,
+  ProjectilePrefab: {fileID: 8924682559891268397, guid: 83538a73ee6455346805c869d007878c,
     type: 3}
   DelayBetweenShots: 0.1
   BulletSpreadAngle: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   AmmoUsedOnStartCharge: 1
   AmmoUsageRateWhileCharging: 2
   WeaponAnimator: {fileID: 0}
-  MuzzleFlashPrefab: {fileID: 748781637555137343, guid: 9f671b22f25370048a18fb1f821294ec,
+  MuzzleFlashPrefab: {fileID: 748781637555137343, guid: afbb2913ecfa05449ba75d2b84bbb92c,
     type: 3}
   UnparentMuzzleFlash: 0
   ShootSfx: {fileID: 8300000, guid: 53d2238f4c4b2aa4f8e559c7af9e0126, type: 3}

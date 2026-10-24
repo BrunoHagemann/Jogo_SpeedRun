@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3659995153115176982}
   - component: {fileID: 8924682559891268397}
   m_Layer: 0
-  m_Name: Projectile_Shotgun 1
+  m_Name: Projectile_Blaster_m4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,11 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de99b30e1e73fd14e98cc5371da25d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 0.1
+  Radius: 0.01
   Root: {fileID: 3659995153115176982}
   Tip: {fileID: 1135791333161367127}
   MaxLifeTime: 5
-  ImpactVfx: {fileID: 7655095426451682942, guid: 358eca6adc32a89459c54b6b62d9c825,
+  ImpactVfx: {fileID: 7655095426451682942, guid: fdde58ce91c443740bf3edcc128e7c2b,
     type: 3}
   ImpactVfxLifetime: 5
   ImpactVfxSpawnOffset: 0.1
@@ -57,13 +57,13 @@ MonoBehaviour:
   HittableLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  Speed: 150
-  GravityDownAcceleration: 20
-  TrajectoryCorrectionDistance: -1
+  Speed: 300
+  GravityDownAcceleration: 0
+  TrajectoryCorrectionDistance: 5
   InheritWeaponVelocity: 0
-  Damage: 7
+  Damage: 15
   AreaOfDamage: {fileID: 0}
-  RadiusColor: {r: 1, g: 0.72638464, b: 0, a: 1}
+  RadiusColor: {r: 1, g: 0.8156863, b: 0, a: 1}
 --- !u!1 &5564024855854763701
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +162,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a7baa8fdcb831b44d87d70b1e6941b39, type: 2}
+  - {fileID: 2100000, guid: e4d0ea9642095ef4cb76e9b3c9f91eef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
