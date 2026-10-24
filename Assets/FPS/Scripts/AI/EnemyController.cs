@@ -146,8 +146,11 @@ namespace Unity.FPS.AI
 
             // Find and initialize all weapons
             FindAndInitializeAllWeapons();
-            var weapon = GetCurrentWeapon();
-            weapon.ShowWeapon(true);
+            if (m_Weapons.Length > 0)
+            {
+                var weapon = GetCurrentWeapon();
+                weapon.ShowWeapon(true);
+            }
 
             var detectionModules = GetComponentsInChildren<DetectionModule>();
             DebugUtility.HandleErrorIfNoComponentFound<DetectionModule, EnemyController>(detectionModules.Length, this,
@@ -409,6 +412,9 @@ namespace Unity.FPS.AI
             if (m_GameFlowManager.GameIsEnding)
                 return false;
 
+            if (m_Weapons == null || m_Weapons.Length == 0)
+                return false;
+
             OrientWeaponsTowards(enemyPosition);
 
             if ((m_LastTimeWeaponSwapped + DelayAfterWeaponSwap) >= Time.time)
@@ -447,8 +453,6 @@ namespace Unity.FPS.AI
             if (m_Weapons == null)
             {
                 m_Weapons = GetComponentsInChildren<WeaponController>();
-                DebugUtility.HandleErrorIfNoComponentFound<WeaponController, EnemyController>(m_Weapons.Length, this,
-                    gameObject);
 
                 for (int i = 0; i < m_Weapons.Length; i++)
                 {
@@ -460,6 +464,8 @@ namespace Unity.FPS.AI
         public WeaponController GetCurrentWeapon()
         {
             FindAndInitializeAllWeapons();
+            if (m_Weapons.Length == 0)
+                return null;
             // Check if no weapon is currently selected
             if (m_CurrentWeapon == null)
             {
