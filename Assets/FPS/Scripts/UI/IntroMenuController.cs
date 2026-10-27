@@ -16,7 +16,7 @@ namespace Unity.FPS.UI
 
         private const string BackgroundVideoFileName = "MenuIniciaL01.mp4";
         private const string PlayVideoFileName = "Play.mp4";
-        private const string MainSceneName = "MainScene";
+        private const string MainSceneName = "Cidade";
         private const string BackgroundObjectName = "BackgroundImage";
         private const string VideoSurfaceObjectName = "IntroMenuVideoBackground";
         private const string PlayButtonObjectName = "StartButton";
