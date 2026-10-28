@@ -17,6 +17,9 @@ namespace Unity.FPS.Game
         [Tooltip("Delay before the objective becomes visible")]
         public float DelayVisible;
 
+        [Tooltip("Objetivo que precisa ser concluído antes deste aparecer")]
+        public Objective UnlockAfterObjective;
+
         public bool IsCompleted { get; private set; }
         public bool IsBlocking() => !(IsOptional || IsCompleted);
 
@@ -25,12 +28,37 @@ namespace Unity.FPS.Game
 
         protected virtual void Start()
         {
+            if (UnlockAfterObjective != null && !UnlockAfterObjective.IsCompleted)
+            {
+                OnObjectiveCompleted += HandleUnlockObjectiveCompleted;
+                return;
+            }
+
+            DisplayObjective();
+        }
+
+        void HandleUnlockObjectiveCompleted(Objective objective)
+        {
+            if (objective != UnlockAfterObjective)
+                return;
+
+            OnObjectiveCompleted -= HandleUnlockObjectiveCompleted;
+            DisplayObjective();
+        }
+
+        void DisplayObjective()
+        {
             OnObjectiveCreated?.Invoke(this);
 
             DisplayMessageEvent displayMessage = Events.DisplayMessageEvent;
             displayMessage.Message = Title;
             displayMessage.DelayBeforeDisplay = 0.0f;
             EventManager.Broadcast(displayMessage);
+        }
+
+        protected virtual void OnDestroy()
+        {
+            OnObjectiveCompleted -= HandleUnlockObjectiveCompleted;
         }
 
         public void UpdateObjective(string descriptionText, string counterText, string notificationText)

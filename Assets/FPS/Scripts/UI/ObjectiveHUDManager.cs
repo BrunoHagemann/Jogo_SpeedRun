@@ -33,9 +33,6 @@ namespace Unity.FPS.UI
             GameObject objectiveUIInstance =
                 Instantiate(objective.IsOptional ? SecondaryObjectivePrefab : PrimaryObjectivePrefab, ObjectivePanel);
 
-            if (!objective.IsOptional)
-                objectiveUIInstance.transform.SetSiblingIndex(0);
-
             ObjectiveToast toast = objectiveUIInstance.GetComponent<ObjectiveToast>();
             DebugUtility.HandleErrorIfNullGetComponent<ObjectiveToast, ObjectiveHUDManager>(toast, this,
                 objectiveUIInstance.gameObject);

@@ -8,6 +8,15 @@ namespace Unity.FPS.Gameplay
         [Tooltip("Item to pickup to complete the objective")]
         public GameObject ItemToPickup;
 
+        void Awake()
+        {
+            if (UnlockAfterObjective != null && ItemToPickup != null &&
+                ItemToPickup.TryGetComponent(out Pickup pickup))
+            {
+                pickup.UnlockAfterObjective = UnlockAfterObjective;
+            }
+        }
+
         protected override void Start()
         {
             base.Start();
@@ -30,9 +39,10 @@ namespace Unity.FPS.Gameplay
             }
         }
 
-        void OnDestroy()
+        protected override void OnDestroy()
         {
             EventManager.RemoveListener<PickupEvent>(OnPickupEvent);
+            base.OnDestroy();
         }
     }
 }

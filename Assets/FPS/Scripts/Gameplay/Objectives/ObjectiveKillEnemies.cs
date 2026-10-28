@@ -71,9 +71,10 @@ namespace Unity.FPS.Gameplay
             return m_KillTotal + " / " + KillsToCompleteObjective;
         }
 
-        void OnDestroy()
+        protected override void OnDestroy()
         {
             EventManager.RemoveListener<EnemyKillEvent>(OnEnemyKilled);
+            base.OnDestroy();
         }
     }
 }

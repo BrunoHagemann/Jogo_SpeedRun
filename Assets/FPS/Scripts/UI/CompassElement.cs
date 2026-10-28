@@ -11,7 +11,11 @@ namespace Unity.FPS.UI
         [Tooltip("Text override for the marker, if it's a direction")]
         public string TextDirection;
 
+        [Tooltip("Objective that must be completed before this marker is shown")]
+        public Objective UnlockAfterObjective;
+
         Compass m_Compass;
+        CompassMarker m_MarkerInstance;
 
         void Awake()
         {
@@ -19,13 +23,31 @@ namespace Unity.FPS.UI
             DebugUtility.HandleErrorIfNullFindObject<Compass, CompassElement>(m_Compass, this);
 
             var markerInstance = Instantiate(CompassMarkerPrefab);
+            m_MarkerInstance = markerInstance;
 
             markerInstance.Initialize(this, TextDirection);
             m_Compass.RegisterCompassElement(transform, markerInstance);
+
+            bool shouldShowMarker = UnlockAfterObjective == null || UnlockAfterObjective.IsCompleted;
+            markerInstance.gameObject.SetActive(shouldShowMarker);
+            if (!shouldShowMarker)
+                Objective.OnObjectiveCompleted += OnObjectiveCompleted;
+        }
+
+        void OnObjectiveCompleted(Objective objective)
+        {
+            if (objective != UnlockAfterObjective)
+                return;
+
+            if (m_MarkerInstance != null)
+                m_MarkerInstance.gameObject.SetActive(true);
+
+            Objective.OnObjectiveCompleted -= OnObjectiveCompleted;
         }
 
         void OnDestroy()
         {
+            Objective.OnObjectiveCompleted -= OnObjectiveCompleted;
             m_Compass.UnregisterCompassElement(transform);
         }
     }
