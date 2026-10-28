@@ -36074,6 +36074,100 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a804f15ce1f1d34eabed72f25b3d732, type: 3}
+--- !u!1 &234545539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 234545542}
+  - component: {fileID: 234545541}
+  - component: {fileID: 234545540}
+  m_Layer: 0
+  m_Name: Terrain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!154 &234545540
+TerrainCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234545539}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_TerrainData: {fileID: 15600000, guid: 01c0fc523b5ded447b87044e7f981e7c, type: 2}
+  m_EnableTreeColliders: 1
+--- !u!218 &234545541
+Terrain:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234545539}
+  m_Enabled: 1
+  serializedVersion: 6
+  m_TerrainData: {fileID: 15600000, guid: 01c0fc523b5ded447b87044e7f981e7c, type: 2}
+  m_TreeDistance: 5000
+  m_TreeBillboardDistance: 50
+  m_TreeCrossFadeLength: 5
+  m_TreeMaximumFullLODCount: 50
+  m_DetailObjectDistance: 80
+  m_DetailObjectDensity: 1
+  m_HeightmapPixelError: 5
+  m_SplatMapDistance: 1000
+  m_HeightmapMinimumLODSimplification: 0
+  m_HeightmapMaximumLOD: 0
+  m_ShadowCastingMode: 2
+  m_DrawHeightmap: 0
+  m_DrawInstanced: 0
+  m_DrawTreesAndFoliage: 0
+  m_StaticShadowCaster: 0
+  m_IgnoreQualitySettings: 0
+  m_ReflectionProbeUsage: 1
+  m_MaterialTemplate: {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
+  m_BakeLightProbesForTrees: 1
+  m_PreserveTreePrototypeLayers: 0
+  m_DeringLightProbesForTrees: 1
+  m_ReceiveGI: 1
+  m_ScaleInLightmap: 0.0256
+  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
+  m_GroupingID: 0
+  m_RenderingLayerMask: 1
+  m_AllowAutoConnect: 1
+  m_EnableHeightmapRayTracing: 1
+  m_EnableTreesAndDetailsRayTracing: 0
+  m_EnableHeightmapLODFrustumCulling: 1
+  m_TreeMotionVectorModeOverride: 3
+--- !u!4 &234545542
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234545539}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -412.6, y: 69.64, z: -17.83}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &235011461
 GameObject:
   m_ObjectHideFlags: 0
@@ -111269,6 +111363,105 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 698710472}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &698935059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 698935061}
+  - component: {fileID: 698935060}
+  m_Layer: 0
+  m_Name: Pure Volumetric Fog
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &698935060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698935059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a8a4f589d342f24fbade49a21a154f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: BKPureNature.PureVolumetricFog::BKPureNature.PureVolumetricFog
+  settingsVersion: 1
+  terrains: []
+  findActiveTerrainsAutomatically: 1
+  horizontalPadding: 40
+  bottomPadding: 20
+  topPadding: 160
+  terrainEdgeFade: 0
+  terrainFollow: 0.9
+  rebuildWhenTerrainChanges: 1
+  density: 0.076
+  groundFogHeight: 60
+  topSoftness: 0.1
+  noiseTextureResolution: 64
+  noiseSeed: 1337
+  largeNoiseScale: 800
+  detailNoiseScale: 120
+  noiseAmount: 0
+  noiseFloor: 0
+  noiseContrast: 1.5
+  noiseStrength: 3
+  noiseCoverage: 0.5
+  noiseHeightDistortion: 0
+  verticalNoiseShear: 0.004
+  windDirection: {x: 0.28734788, y: 0.95782626}
+  windSpeed: 20
+  debugView: 0
+  useSceneDepth: 1
+  depthBias: 0
+  maximumRaySteps: 28
+  minimumRaySteps: 7
+  targetStepLength: 105
+  maximumFogDistance: 4500
+  nearFadeDistance: 150
+  farFadeStart: 0.08
+  fogColor: {r: 0.63, g: 0.7, b: 0.76, a: 1}
+  followSceneFogColor: 1
+  ambientColor: {r: 0.5, g: 0.55, b: 0.6, a: 1}
+  followSceneAmbientColor: 1
+  ambientStrength: 1
+  ambientShadowStrength: 0.7
+  sunStrength: 1
+  sunScattering: 0.5
+  anisotropy: 0.01
+  directionalLight: {fileID: 190857409}
+  rayJitterStrength: 1
+  noiseMipBias: 0.5
+  noiseFilterScale: 0.7
+  rayStepSmoothing: 1
+  enableVolumetricShadows: 1
+  terrainCastsFogShadows: 1
+  useUnityRealtimeShadows: 1
+  shadowStrength: 0.7
+  shadowDistance: 900
+  terrainShadowBias: 0
+  fogSelfShadowStrength: 2.25
+--- !u!4 &698935061
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698935059}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -331.3, y: 70.58, z: 13.99}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &698989870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -171410,6 +171603,11 @@ PrefabInstance:
       propertyPath: InvertXAxis
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6145509692674227223, guid: 761cdc9e4e883334cbdcea062d0befa7,
+        type: 3}
+      propertyPath: CameraHeightRatio
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 7253983127304857660, guid: 761cdc9e4e883334cbdcea062d0befa7,
         type: 3}
       propertyPath: m_Name
@@ -171443,17 +171641,17 @@ PrefabInstance:
     - target: {fileID: 8746678193447392789, guid: 761cdc9e4e883334cbdcea062d0befa7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 69.64
+      value: 69.81
       objectReference: {fileID: 0}
     - target: {fileID: 8746678193447392789, guid: 761cdc9e4e883334cbdcea062d0befa7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.2
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8746678193447392789, guid: 761cdc9e4e883334cbdcea062d0befa7,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7349144
+      value: 0.73568326
       objectReference: {fileID: 0}
     - target: {fileID: 8746678193447392789, guid: 761cdc9e4e883334cbdcea062d0befa7,
         type: 3}
@@ -171463,7 +171661,7 @@ PrefabInstance:
     - target: {fileID: 8746678193447392789, guid: 761cdc9e4e883334cbdcea062d0befa7,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.6781599
+      value: -0.6773258
       objectReference: {fileID: 0}
     - target: {fileID: 8746678193447392789, guid: 761cdc9e4e883334cbdcea062d0befa7,
         type: 3}
@@ -171478,7 +171676,7 @@ PrefabInstance:
     - target: {fileID: 8746678193447392789, guid: 761cdc9e4e883334cbdcea062d0befa7,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 634.6
+      value: 634.73
       objectReference: {fileID: 0}
     - target: {fileID: 8746678193447392789, guid: 761cdc9e4e883334cbdcea062d0befa7,
         type: 3}
@@ -349020,3 +349218,5 @@ SceneRoots:
   - {fileID: 7100000000000000002}
   - {fileID: 7100000000000000004}
   - {fileID: 595466521}
+  - {fileID: 698935061}
+  - {fileID: 234545542}
