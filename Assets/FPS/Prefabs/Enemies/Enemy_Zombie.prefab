@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: fps.AI::Unity.FPS.AI.DetectionModule
   DetectionSourcePoint: {fileID: 3980396335037451479}
-  DetectionRange: 20
+  DetectionRange: 250
   AttackRange: 2.4
   KnownTargetTimeout: 4
   Animator: {fileID: 0}

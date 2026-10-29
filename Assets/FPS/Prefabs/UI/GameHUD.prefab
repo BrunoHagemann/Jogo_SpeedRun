@@ -891,6 +891,9 @@ MonoBehaviour:
   DistanceMinScale: 50
   CompasMarginRatio: 0.8
   MarkerDirectionPrefab: {fileID: 0}
+  ZombieMarkerPrefab: {fileID: 4125838790012652590, guid: 513785daf84f2a243b0cda079e6835cd, type: 3}
+  ZombieMarkerDelay: 15
+  ZombieMarkerBlinkInterval: 0.4
 --- !u!114 &4514110739513968174
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -28884,7 +28884,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 12
   m_Type: 1
-  m_Color: {r: 1, g: 0.9581084, b: 0.02352941, a: 1}
+  m_Color: {r: 1, g: 0.93855, b: 0.02352941, a: 1}
   m_Intensity: 1.2
   m_Range: 10
   m_SpotAngle: 30
@@ -111665,7 +111665,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: BKPureNature.PureVolumetricFog::BKPureNature.PureVolumetricFog
   settingsVersion: 1
-  terrains: []
+  terrains:
+  - {fileID: 234545541}
   findActiveTerrainsAutomatically: 1
   horizontalPadding: 40
   bottomPadding: 20
@@ -111674,7 +111675,7 @@ MonoBehaviour:
   terrainFollow: 0.9
   rebuildWhenTerrainChanges: 1
   density: 0.02
-  groundFogHeight: 74.5
+  groundFogHeight: 34.1
   topSoftness: 0.1
   noiseTextureResolution: 64
   noiseSeed: 1337
@@ -111696,16 +111697,16 @@ MonoBehaviour:
   minimumRaySteps: 7
   targetStepLength: 105
   maximumFogDistance: 4500
-  nearFadeDistance: 162.1
+  nearFadeDistance: 154.5
   farFadeStart: 0.08
   fogColor: {r: 0.63, g: 0.7, b: 0.76, a: 1}
   followSceneFogColor: 1
   ambientColor: {r: 0.5, g: 0.55, b: 0.6, a: 1}
   followSceneAmbientColor: 1
   ambientStrength: 1
-  ambientShadowStrength: 0.7
+  ambientShadowStrength: 0.94
   sunStrength: 1
-  sunScattering: 0.5
+  sunScattering: 0.44
   anisotropy: 0.01
   directionalLight: {fileID: 190857409}
   rayJitterStrength: 1
@@ -111718,7 +111719,7 @@ MonoBehaviour:
   shadowStrength: 1
   shadowDistance: 900
   terrainShadowBias: 0
-  fogSelfShadowStrength: 2.25
+  fogSelfShadowStrength: 3.48
 --- !u!4 &698935061
 Transform:
   m_ObjectHideFlags: 0

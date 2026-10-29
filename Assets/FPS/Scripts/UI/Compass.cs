@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unity.FPS.AI;
 using Unity.FPS.Game;
 using Unity.FPS.Gameplay;
 using UnityEngine;
@@ -16,11 +17,19 @@ namespace Unity.FPS.UI
 
         public GameObject MarkerDirectionPrefab;
 
+        [Header("Zombie markers")]
+        public CompassMarker ZombieMarkerPrefab;
+        public float ZombieMarkerDelay = 15f;
+        public float ZombieMarkerBlinkInterval = 0.4f;
+
         Transform m_PlayerTransform;
         Dictionary<Transform, CompassMarker> m_ElementsDictionnary = new Dictionary<Transform, CompassMarker>();
+        HashSet<Transform> m_ZombieMarkers = new HashSet<Transform>();
 
         float m_WidthMultiplier;
         float m_HeightOffset;
+        float m_ZombieMarkersRevealTime;
+        bool m_ZombieMarkersRevealed;
 
         void Awake()
         {
@@ -31,10 +40,20 @@ namespace Unity.FPS.UI
 
             m_WidthMultiplier = CompasRect.rect.width / VisibilityAngle;
             m_HeightOffset = -CompasRect.rect.height / 2;
+            m_ZombieMarkersRevealTime = Time.time + Mathf.Max(0f, ZombieMarkerDelay);
+            EventManager.AddListener<EnemyKillEvent>(OnEnemyKilled);
+        }
+
+        void OnDestroy()
+        {
+            EventManager.RemoveListener<EnemyKillEvent>(OnEnemyKilled);
         }
 
         void Update()
         {
+            if (!m_ZombieMarkersRevealed && Time.time >= m_ZombieMarkersRevealTime)
+                RevealZombieMarkers();
+
             // this is all very WIP, and needs to be reworked
             foreach (var element in m_ElementsDictionnary)
             {
@@ -76,7 +95,49 @@ namespace Unity.FPS.UI
                 {
                     element.Value.CanvasGroup.alpha = 0;
                 }
+
+                if (ShouldShowZombieMarker(element.Key))
+                    element.Value.CanvasGroup.alpha *= IsZombieBlinkVisible() ? 1f : 0f;
             }
+        }
+
+        void RevealZombieMarkers()
+        {
+            m_ZombieMarkersRevealed = true;
+            if (ZombieMarkerPrefab == null)
+                return;
+
+            EnemyZombieMelee[] zombies = FindObjectsByType<EnemyZombieMelee>(FindObjectsSortMode.None);
+            foreach (EnemyZombieMelee zombie in zombies)
+            {
+                if (zombie == null || m_ElementsDictionnary.ContainsKey(zombie.transform))
+                    continue;
+
+                CompassMarker marker = Instantiate(ZombieMarkerPrefab);
+                if (marker.MainImage != null)
+                    marker.MainImage.color = marker.AltColor;
+                RegisterCompassElement(zombie.transform, marker);
+                m_ZombieMarkers.Add(zombie.transform);
+            }
+        }
+
+        bool ShouldShowZombieMarker(Transform element) =>
+            m_ZombieMarkersRevealed && m_ZombieMarkers.Contains(element);
+
+        bool IsZombieBlinkVisible()
+        {
+            float interval = Mathf.Max(0.01f, ZombieMarkerBlinkInterval);
+            return Mathf.FloorToInt(Time.time / interval) % 2 == 0;
+        }
+
+        void OnEnemyKilled(EnemyKillEvent evt)
+        {
+            if (evt.Enemy == null)
+                return;
+
+            Transform enemyTransform = evt.Enemy.transform;
+            if (m_ZombieMarkers.Remove(enemyTransform))
+                UnregisterCompassElement(enemyTransform);
         }
 
         public void RegisterCompassElement(Transform element, CompassMarker marker)
