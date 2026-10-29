@@ -1,6 +1,7 @@
 using System.Collections;
 using System.IO;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -16,17 +17,21 @@ namespace Unity.FPS.UI
 
         private const string BackgroundVideoFileName = "MenuIniciaL01.mp4";
         private const string PlayVideoFileName = "Play.mp4";
+        private const string LoadingVideoFileName = "FASE1LOADING.mp4";
         private const string MainSceneName = "Cidade";
         private const string BackgroundObjectName = "BackgroundImage";
         private const string VideoSurfaceObjectName = "IntroMenuVideoBackground";
+        private const string PlaySequenceBlackOverlayName = "PlaySequenceBlackOverlay";
         private const string PlayButtonObjectName = "StartButton";
         private const float PlayVideoPrepareTimeout = 10f;
 
         private AspectRatioFitter m_VideoAspectFitter;
         private VideoPlayer m_VideoPlayer;
+        private Image m_PlaySequenceBlackOverlay;
         private Button m_PlayButton;
         private Canvas m_MenuCanvas;
         private bool m_PlaySequenceStarted;
+        private bool m_LoadingVideoStarted;
         private bool m_MainSceneLoading;
 
         private void Start()
@@ -39,6 +44,15 @@ namespace Unity.FPS.UI
             ConfigureBackgroundVideo();
         }
 
+        private void Update()
+        {
+            if (m_LoadingVideoStarted && !m_MainSceneLoading
+                && Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
+            {
+                LoadMainScene();
+            }
+        }
+
         private void OnDestroy()
         {
             if (m_PlayButton != null)
@@ -49,10 +63,13 @@ namespace Unity.FPS.UI
 
             m_VideoPlayer.prepareCompleted -= OnBackgroundVideoPrepared;
             m_VideoPlayer.prepareCompleted -= OnPlayVideoPrepared;
+            m_VideoPlayer.prepareCompleted -= OnLoadingVideoPrepared;
             m_VideoPlayer.frameReady -= OnVideoFrameReady;
             m_VideoPlayer.loopPointReached -= OnPlayVideoFinished;
+            m_VideoPlayer.loopPointReached -= OnLoadingVideoFinished;
             m_VideoPlayer.errorReceived -= OnBackgroundVideoError;
             m_VideoPlayer.errorReceived -= OnPlayVideoError;
+            m_VideoPlayer.errorReceived -= OnLoadingVideoError;
             m_VideoPlayer.Stop();
         }
 
@@ -172,6 +189,8 @@ namespace Unity.FPS.UI
             if (m_PlayButton != null)
                 m_PlayButton.interactable = false;
 
+            ShowBlackOverlay();
+
             if (m_VideoPlayer != null)
             {
                 m_VideoPlayer.prepareCompleted -= OnBackgroundVideoPrepared;
@@ -214,10 +233,47 @@ namespace Unity.FPS.UI
             StartCoroutine(LoadMainSceneIfPrepareTimesOut());
         }
 
+        private void ShowBlackOverlay()
+        {
+            if (m_MenuCanvas == null)
+                return;
+
+            Transform overlayTransform = m_MenuCanvas.transform.Find(PlaySequenceBlackOverlayName);
+            GameObject overlayObject;
+            if (overlayTransform != null)
+            {
+                overlayObject = overlayTransform.gameObject;
+            }
+            else
+            {
+                overlayObject = new GameObject(
+                    PlaySequenceBlackOverlayName,
+                    typeof(RectTransform),
+                    typeof(CanvasRenderer),
+                    typeof(Image));
+            }
+
+            RectTransform rectTransform = overlayObject.GetComponent<RectTransform>();
+            rectTransform.SetParent(m_MenuCanvas.transform, false);
+            rectTransform.anchorMin = Vector2.zero;
+            rectTransform.anchorMax = Vector2.one;
+            rectTransform.offsetMin = Vector2.zero;
+            rectTransform.offsetMax = Vector2.zero;
+
+            m_PlaySequenceBlackOverlay = overlayObject.GetComponent<Image>();
+            m_PlaySequenceBlackOverlay.color = Color.black;
+            m_PlaySequenceBlackOverlay.raycastTarget = false;
+            m_PlaySequenceBlackOverlay.transform.SetAsLastSibling();
+
+            if (m_VideoBackground != null)
+                m_VideoBackground.transform.SetAsLastSibling();
+        }
+
         private IEnumerator LoadMainSceneIfPrepareTimesOut()
         {
             yield return new WaitForSecondsRealtime(PlayVideoPrepareTimeout);
             if (m_PlaySequenceStarted && !m_MainSceneLoading
+                && !m_LoadingVideoStarted
                 && m_VideoPlayer != null && !m_VideoPlayer.isPlaying)
             {
                 Debug.LogError("Play cinematic did not start before the timeout. Loading MainScene.", this);
@@ -280,6 +336,76 @@ namespace Unity.FPS.UI
 
         private void OnPlayVideoFinished(VideoPlayer player)
         {
+            PlayLoadingVideo();
+        }
+
+        private void PlayLoadingVideo()
+        {
+            if (m_LoadingVideoStarted || m_MainSceneLoading)
+                return;
+
+            m_LoadingVideoStarted = true;
+            if (m_VideoPlayer != null)
+            {
+                m_VideoPlayer.prepareCompleted -= OnPlayVideoPrepared;
+                m_VideoPlayer.errorReceived -= OnPlayVideoError;
+                m_VideoPlayer.loopPointReached -= OnPlayVideoFinished;
+                m_VideoPlayer.Stop();
+            }
+
+            string videoPath = Path.Combine(Application.streamingAssetsPath, LoadingVideoFileName);
+            if (!File.Exists(videoPath))
+            {
+                Debug.LogError($"Level 1 loading video was not found at '{videoPath}'. Loading MainScene.", this);
+                LoadMainScene();
+                return;
+            }
+
+            EnsureVideoPlayer();
+            m_VideoPlayer.source = VideoSource.Url;
+            m_VideoPlayer.url = videoPath;
+            m_VideoPlayer.renderMode = VideoRenderMode.APIOnly;
+            m_VideoPlayer.isLooping = false;
+            m_VideoPlayer.waitForFirstFrame = true;
+            m_VideoPlayer.audioOutputMode = VideoAudioOutputMode.Direct;
+            m_VideoPlayer.prepareCompleted += OnLoadingVideoPrepared;
+            m_VideoPlayer.errorReceived += OnLoadingVideoError;
+            m_VideoPlayer.loopPointReached += OnLoadingVideoFinished;
+            m_VideoPlayer.Prepare();
+            StartCoroutine(LoadMainSceneIfLoadingVideoPrepareTimesOut());
+        }
+
+        private IEnumerator LoadMainSceneIfLoadingVideoPrepareTimesOut()
+        {
+            yield return new WaitForSecondsRealtime(PlayVideoPrepareTimeout);
+            if (m_LoadingVideoStarted && !m_MainSceneLoading
+                && m_VideoPlayer != null && !m_VideoPlayer.isPlaying)
+            {
+                Debug.LogError("Level 1 loading video did not start before the timeout. Loading MainScene.", this);
+                LoadMainScene();
+            }
+        }
+
+        private void OnLoadingVideoPrepared(VideoPlayer player)
+        {
+            player.prepareCompleted -= OnLoadingVideoPrepared;
+            AssignVideoTexture(player);
+
+            player.controlledAudioTrackCount = player.audioTrackCount;
+            for (ushort track = 0; track < player.audioTrackCount; track++)
+                player.EnableAudioTrack(track, true);
+
+            player.Play();
+        }
+
+        private void OnLoadingVideoError(VideoPlayer player, string message)
+        {
+            Debug.LogError($"Level 1 loading video failed: {message}. Loading MainScene.", this);
+            LoadMainScene();
+        }
+
+        private void OnLoadingVideoFinished(VideoPlayer player)
+        {
             LoadMainScene();
         }
 
@@ -292,8 +418,11 @@ namespace Unity.FPS.UI
             if (m_VideoPlayer != null)
             {
                 m_VideoPlayer.prepareCompleted -= OnPlayVideoPrepared;
+                m_VideoPlayer.prepareCompleted -= OnLoadingVideoPrepared;
                 m_VideoPlayer.errorReceived -= OnPlayVideoError;
+                m_VideoPlayer.errorReceived -= OnLoadingVideoError;
                 m_VideoPlayer.loopPointReached -= OnPlayVideoFinished;
+                m_VideoPlayer.loopPointReached -= OnLoadingVideoFinished;
                 m_VideoPlayer.Stop();
             }
 
