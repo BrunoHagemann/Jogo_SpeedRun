@@ -27,6 +27,30 @@ namespace Unity.FPS.Gameplay
             DebugUtility.HandleErrorIfNullGetComponent<WeaponController, WeaponFuelCellHandler>(m_Weapon, this,
                 gameObject);
 
+            // Custom weapon models may not contain animated fuel-cell meshes.
+            // Remove unassigned entries so pickups never cause a null reference in Update.
+            int validFuelCellCount = 0;
+            if (FuelCells != null)
+            {
+                for (int i = 0; i < FuelCells.Length; i++)
+                {
+                    if (FuelCells[i] != null)
+                        validFuelCellCount++;
+                }
+            }
+
+            GameObject[] validFuelCells = new GameObject[validFuelCellCount];
+            int nextFuelCellIndex = 0;
+            if (FuelCells != null)
+            {
+                for (int i = 0; i < FuelCells.Length; i++)
+                {
+                    if (FuelCells[i] != null)
+                        validFuelCells[nextFuelCellIndex++] = FuelCells[i];
+                }
+            }
+            FuelCells = validFuelCells;
+
             m_FuelCellsCooled = new bool[FuelCells.Length];
             for (int i = 0; i < m_FuelCellsCooled.Length; i++)
             {

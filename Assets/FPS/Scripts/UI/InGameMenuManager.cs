@@ -106,7 +106,7 @@ namespace Unity.FPS.UI
 
             if (m_NavigateAction.ReadValue<Vector2>().y != 0)
             {
-                if (EventSystem.current.currentSelectedGameObject == null)
+                if (EventSystem.current != null && EventSystem.current.currentSelectedGameObject == null)
                 {
                     EventSystem.current.SetSelectedGameObject(null);
                     LookSensitivitySlider.Select();
@@ -130,7 +130,8 @@ namespace Unity.FPS.UI
                 Time.timeScale = 0f;
                 AudioUtility.SetMasterVolume(VolumeWhenMenuOpen);
 
-                EventSystem.current.SetSelectedGameObject(null);
+                if (EventSystem.current != null)
+                    EventSystem.current.SetSelectedGameObject(null);
             }
             else
             {

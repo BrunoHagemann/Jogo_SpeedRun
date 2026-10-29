@@ -48,8 +48,11 @@ namespace Unity.FPS.Gameplay
 
         void Awake()
         {
-            var emissionModule = SteamVfx.emission;
-            emissionModule.rateOverTimeMultiplier = 0f;
+            if (SteamVfx != null)
+            {
+                m_SteamVfxEmissionModule = SteamVfx.emission;
+                m_SteamVfxEmissionModule.rateOverTimeMultiplier = 0f;
+            }
 
             m_OverheatingRenderersData = new List<RendererIndexData>();
             foreach (var renderer in GetComponentsInChildren<Renderer>(true))
@@ -62,8 +65,6 @@ namespace Unity.FPS.Gameplay
             }
 
             m_OverheatMaterialPropertyBlock = new MaterialPropertyBlock();
-            m_SteamVfxEmissionModule = SteamVfx.emission;
-
             m_Weapon = GetComponent<WeaponController>();
             DebugUtility.HandleErrorIfNullGetComponent<WeaponController, OverheatBehavior>(m_Weapon, this, gameObject);
 
@@ -86,7 +87,9 @@ namespace Unity.FPS.Gameplay
                     data.Renderer.SetPropertyBlock(m_OverheatMaterialPropertyBlock, data.MaterialIndex);
                 }
 
-                m_SteamVfxEmissionModule.rateOverTimeMultiplier = SteamVfxEmissionRateMax * (1f - currentAmmoRatio);
+                if (SteamVfx != null)
+                    m_SteamVfxEmissionModule.rateOverTimeMultiplier =
+                        SteamVfxEmissionRateMax * (1f - currentAmmoRatio);
             }
 
             // cooling sound

@@ -202,11 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SimultaneousFuelCellsUsage: 0
-  FuelCells:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  FuelCells: []
   FuelCellUsedPosition: {x: 0, y: 0.1, z: 0}
   FuelCellUnusedPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &5267678958486958522
