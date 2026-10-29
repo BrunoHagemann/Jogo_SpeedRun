@@ -26,9 +26,9 @@ namespace Unity.FPS.UI
         Dictionary<Transform, CompassMarker> m_ElementsDictionnary = new Dictionary<Transform, CompassMarker>();
         HashSet<Transform> m_ZombieMarkers = new HashSet<Transform>();
 
-        float m_WidthMultiplier;
         float m_HeightOffset;
         float m_ZombieMarkersRevealTime;
+        float m_NextZombieMarkerRefreshTime;
         bool m_ZombieMarkersRevealed;
 
         void Awake()
@@ -38,7 +38,6 @@ namespace Unity.FPS.UI
                 this);
             m_PlayerTransform = playerCharacterController.transform;
 
-            m_WidthMultiplier = CompasRect.rect.width / VisibilityAngle;
             m_HeightOffset = -CompasRect.rect.height / 2;
             m_ZombieMarkersRevealTime = Time.time + Mathf.Max(0f, ZombieMarkerDelay);
             EventManager.AddListener<EnemyKillEvent>(OnEnemyKilled);
@@ -52,14 +51,27 @@ namespace Unity.FPS.UI
         void Update()
         {
             if (!m_ZombieMarkersRevealed && Time.time >= m_ZombieMarkersRevealTime)
-                RevealZombieMarkers();
+            {
+                m_ZombieMarkersRevealed = true;
+                m_NextZombieMarkerRefreshTime = 0f;
+            }
+
+            if (m_ZombieMarkersRevealed && Time.time >= m_NextZombieMarkerRefreshTime)
+            {
+                RefreshZombieMarkers();
+                m_NextZombieMarkerRefreshTime = Time.time + 0.5f;
+            }
 
             // this is all very WIP, and needs to be reworked
+            List<Vector2> placedZombieMarkerPositions = new List<Vector2>();
             foreach (var element in m_ElementsDictionnary)
             {
                 float distanceRatio = 1;
                 float heightDifference = 0;
                 float angle;
+                bool isZombieMarker = ShouldShowZombieMarker(element.Key);
+                float visibilityAngle = isZombieMarker ? 360f : VisibilityAngle;
+                float widthMultiplier = CompasRect.rect.width / Mathf.Max(visibilityAngle, 1f);
 
                 if (element.Value.IsDirection)
                 {
@@ -83,11 +95,18 @@ namespace Unity.FPS.UI
                     distanceRatio = Mathf.Clamp01(distanceRatio);
                 }
 
-                if (angle > -VisibilityAngle / 2 && angle < VisibilityAngle / 2)
+                if (angle >= -visibilityAngle / 2 && angle <= visibilityAngle / 2)
                 {
                     element.Value.CanvasGroup.alpha = 1;
-                    element.Value.CanvasGroup.transform.localPosition = new Vector2(m_WidthMultiplier * angle,
+                    Vector2 markerPosition = new Vector2(widthMultiplier * angle,
                         heightDifference + m_HeightOffset);
+                    if (isZombieMarker)
+                    {
+                        markerPosition = FindFreeZombieMarkerPosition(markerPosition, placedZombieMarkerPositions);
+                        placedZombieMarkerPositions.Add(markerPosition);
+                    }
+
+                    element.Value.CanvasGroup.transform.localPosition = markerPosition;
                     element.Value.CanvasGroup.transform.localScale =
                         Vector3.one * Mathf.Lerp(1, MinScale, distanceRatio);
                 }
@@ -96,21 +115,32 @@ namespace Unity.FPS.UI
                     element.Value.CanvasGroup.alpha = 0;
                 }
 
-                if (ShouldShowZombieMarker(element.Key))
+                if (isZombieMarker)
                     element.Value.CanvasGroup.alpha *= IsZombieBlinkVisible() ? 1f : 0f;
             }
         }
 
-        void RevealZombieMarkers()
+        void RefreshZombieMarkers()
         {
-            m_ZombieMarkersRevealed = true;
-            if (ZombieMarkerPrefab == null)
-                return;
-
             EnemyZombieMelee[] zombies = FindObjectsByType<EnemyZombieMelee>(FindObjectsSortMode.None);
             foreach (EnemyZombieMelee zombie in zombies)
             {
-                if (zombie == null || m_ElementsDictionnary.ContainsKey(zombie.transform))
+                if (zombie == null)
+                    continue;
+
+                Health zombieHealth = zombie.GetComponent<Health>();
+                if (zombieHealth == null || zombieHealth.CurrentHealth <= 0f)
+                    continue;
+
+                if (m_ElementsDictionnary.TryGetValue(zombie.transform, out CompassMarker existingMarker))
+                {
+                    if (existingMarker.MainImage != null)
+                        existingMarker.MainImage.color = existingMarker.AltColor;
+                    m_ZombieMarkers.Add(zombie.transform);
+                    continue;
+                }
+
+                if (ZombieMarkerPrefab == null)
                     continue;
 
                 CompassMarker marker = Instantiate(ZombieMarkerPrefab);
@@ -118,6 +148,27 @@ namespace Unity.FPS.UI
                     marker.MainImage.color = marker.AltColor;
                 RegisterCompassElement(zombie.transform, marker);
                 m_ZombieMarkers.Add(zombie.transform);
+            }
+
+            List<Transform> staleMarkers = new List<Transform>();
+            foreach (Transform zombieTransform in m_ZombieMarkers)
+            {
+                if (zombieTransform == null || !zombieTransform.gameObject.activeInHierarchy)
+                {
+                    staleMarkers.Add(zombieTransform);
+                    continue;
+                }
+
+                Health zombieHealth = zombieTransform.GetComponent<Health>();
+                if (zombieTransform.GetComponent<EnemyZombieMelee>() == null || zombieHealth == null ||
+                    zombieHealth.CurrentHealth <= 0f)
+                    staleMarkers.Add(zombieTransform);
+            }
+
+            foreach (Transform staleMarker in staleMarkers)
+            {
+                m_ZombieMarkers.Remove(staleMarker);
+                UnregisterCompassElement(staleMarker);
             }
         }
 
@@ -128,6 +179,34 @@ namespace Unity.FPS.UI
         {
             float interval = Mathf.Max(0.01f, ZombieMarkerBlinkInterval);
             return Mathf.FloorToInt(Time.time / interval) % 2 == 0;
+        }
+
+        Vector2 FindFreeZombieMarkerPosition(Vector2 desiredPosition, List<Vector2> placedPositions)
+        {
+            const float minimumSpacing = 14f;
+            Vector2 candidate = desiredPosition;
+
+            for (int attempt = 0; attempt <= placedPositions.Count * 2; attempt++)
+            {
+                bool overlaps = false;
+                foreach (Vector2 placedPosition in placedPositions)
+                {
+                    if ((candidate - placedPosition).sqrMagnitude < minimumSpacing * minimumSpacing)
+                    {
+                        overlaps = true;
+                        break;
+                    }
+                }
+
+                if (!overlaps)
+                    return candidate;
+
+                int row = (attempt + 2) / 2;
+                float direction = attempt % 2 == 0 ? 1f : -1f;
+                candidate = desiredPosition + Vector2.up * (row * minimumSpacing * direction);
+            }
+
+            return candidate;
         }
 
         void OnEnemyKilled(EnemyKillEvent evt)

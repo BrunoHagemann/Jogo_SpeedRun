@@ -36094,7 +36094,7 @@ Transform:
   m_GameObject: {fileID: 234545539}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -512.5, y: 69.64, z: -66}
+  m_LocalPosition: {x: -512.5, y: 67.2, z: -66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -111706,7 +111706,7 @@ MonoBehaviour:
   ambientStrength: 1
   ambientShadowStrength: 0.94
   sunStrength: 1
-  sunScattering: 0.44
+  sunScattering: 0.74
   anisotropy: 0.01
   directionalLight: {fileID: 190857409}
   rayJitterStrength: 1
@@ -116457,7 +116457,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4917032449352002, guid: a60988b24f8ff094ba511054edf48a9d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 69.86448
+      value: 50.7
       objectReference: {fileID: 0}
     - target: {fileID: 4917032449352002, guid: a60988b24f8ff094ba511054edf48a9d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -172123,6 +172123,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7744083368494050743, guid: 66464d16392bdc34fa96b8154a313001,
         type: 3}
+    - target: {fileID: 783424908873546082, guid: 761cdc9e4e883334cbdcea062d0befa7,
+        type: 3}
+      propertyPath: JetpackAcceleration
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 783424908873546082, guid: 761cdc9e4e883334cbdcea062d0befa7,
         type: 3}
       propertyPath: IsJetpackUnlockedAtStart
@@ -263990,8 +263995,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 53.712357, y: 13.495316, z: 105.127945}
-  m_Center: {x: -6.766034, y: 2.1585007, z: -3.8815043}
+  m_Size: {x: 39.447582, y: 12.696233, z: 106.309204}
+  m_Center: {x: -4.433778, y: 2.1585004, z: -3.8815043}
 --- !u!1001 &1644378171
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -144,6 +144,9 @@ namespace Unity.FPS.Gameplay
         float m_DashElapsedTime;
         float m_LastDashTime = float.NegativeInfinity;
         bool m_IsDashing;
+        bool m_FrozenAfterObjectives;
+        Vector3 m_FrozenPosition;
+        Quaternion m_FrozenRotation;
 
         const float k_JumpGroundingPreventionTime = 0.2f;
         const float k_GroundCheckDistanceInAir = 0.07f;
@@ -153,6 +156,22 @@ namespace Unity.FPS.Gameplay
             ActorsManager actorsManager = FindFirstObjectByType<ActorsManager>();
             if (actorsManager != null)
                 actorsManager.SetPlayer(gameObject);
+
+            EventManager.AddListener<AllObjectivesCompletedEvent>(OnAllObjectivesCompleted);
+        }
+
+        void OnDestroy()
+        {
+            EventManager.RemoveListener<AllObjectivesCompletedEvent>(OnAllObjectivesCompleted);
+        }
+
+        void OnAllObjectivesCompleted(AllObjectivesCompletedEvent evt)
+        {
+            m_FrozenAfterObjectives = true;
+            m_FrozenPosition = transform.position;
+            m_FrozenRotation = transform.rotation;
+            m_IsDashing = false;
+            CharacterVelocity = Vector3.zero;
         }
 
         void Start()
@@ -187,6 +206,13 @@ namespace Unity.FPS.Gameplay
 
         void Update()
         {
+            if (m_FrozenAfterObjectives)
+            {
+                CharacterVelocity = Vector3.zero;
+                transform.SetPositionAndRotation(m_FrozenPosition, m_FrozenRotation);
+                return;
+            }
+
             // check for Y kill
             if (!IsDead && transform.position.y < KillHeight)
             {
