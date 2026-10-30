@@ -1,0 +1,3 @@
+interface:
+  display_name: "Unity Debug"
+  short_description: "Investigue e corrija erros Unity"
