@@ -87,6 +87,7 @@
   <Project Path="Unity.InternalAPIEditorBridgeDev.001.csproj" />
   <Project Path="Unity.ProBuilder.KdTree.csproj" />
   <Project Path="Unity.ProBuilder.AddOns.Editor.csproj" />
+  <Project Path="fps.AI.csproj" />
   <Project Path="Unity.AppUI.Navigation.csproj" />
   <Project Path="Unity.AI.Generators.Asset.csproj" />
   <Project Path="Unity.AI.Navigation.csproj" />
@@ -115,7 +116,6 @@
   <Project Path="Unity.AI.Toolkit.Async.csproj" />
   <Project Path="Unity.RenderPipeline.Universal.ShaderLibrary.csproj" />
   <Project Path="fps.Editor.csproj" />
-  <Project Path="fps.AI.csproj" />
   <Project Path="Unity.AI.Assistant.Bridge.Editor.csproj" />
   <Project Path="Unity.AI.Toolkit.Compliance.csproj" />
   <Project Path="Unity.InternalAPIEngineBridge.004.csproj" />
@@ -133,6 +133,7 @@
   <Project Path="Unity.AI.Generators.Contexts.csproj" />
   <Project Path="Unity.AI.Generators.IO.Srp.csproj" />
   <Project Path="Unity.AI.Animate.Motion.Runtime.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="BKPureNature.PureVolumetricFog.csproj" />
   <Project Path="Unity.Rendering.LightTransport.Editor.csproj" />
   <Project Path="Unity.Collections.Editor.csproj" />
