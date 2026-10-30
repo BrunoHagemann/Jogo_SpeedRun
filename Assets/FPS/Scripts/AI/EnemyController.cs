@@ -417,11 +417,15 @@ namespace Unity.FPS.AI
 
             OrientWeaponsTowards(enemyPosition);
 
+            WeaponController currentWeapon = GetCurrentWeapon();
+            if (currentWeapon != null && currentWeapon.TryGetComponent(out EnemyDualMuzzleFire dualMuzzleFire))
+                dualMuzzleFire.AimAt(enemyPosition);
+
             if ((m_LastTimeWeaponSwapped + DelayAfterWeaponSwap) >= Time.time)
                 return false;
 
             // Shoot the weapon
-            bool didFire = GetCurrentWeapon().HandleShootInputs(false, true, false);
+            bool didFire = currentWeapon != null && currentWeapon.HandleShootInputs(false, true, false);
 
             if (didFire && onAttack != null)
             {

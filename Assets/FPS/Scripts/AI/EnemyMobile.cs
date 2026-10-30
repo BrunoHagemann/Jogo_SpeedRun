@@ -143,9 +143,10 @@ namespace Unity.FPS.AI
                 AiState = AIState.Follow;
             }
 
-            for (int i = 0; i < OnDetectVfx.Length; i++)
+            for (int i = 0; OnDetectVfx != null && i < OnDetectVfx.Length; i++)
             {
-                OnDetectVfx[i].Play();
+                if (OnDetectVfx[i] != null)
+                    OnDetectVfx[i].Play();
             }
 
             if (OnDetectSfx)
@@ -163,9 +164,10 @@ namespace Unity.FPS.AI
                 AiState = AIState.Patrol;
             }
 
-            for (int i = 0; i < OnDetectVfx.Length; i++)
+            for (int i = 0; OnDetectVfx != null && i < OnDetectVfx.Length; i++)
             {
-                OnDetectVfx[i].Stop();
+                if (OnDetectVfx[i] != null)
+                    OnDetectVfx[i].Stop();
             }
 
             Animator.SetBool(k_AnimAlertedParameter, false);
@@ -173,10 +175,18 @@ namespace Unity.FPS.AI
 
         void OnDamaged()
         {
-            if (RandomHitSparks.Length > 0)
+            if (RandomHitSparks != null && RandomHitSparks.Length > 0)
             {
-                int n = Random.Range(0, RandomHitSparks.Length - 1);
-                RandomHitSparks[n].Play();
+                int start = Random.Range(0, RandomHitSparks.Length);
+                for (int i = 0; i < RandomHitSparks.Length; i++)
+                {
+                    ParticleSystem spark = RandomHitSparks[(start + i) % RandomHitSparks.Length];
+                    if (spark != null)
+                    {
+                        spark.Play();
+                        break;
+                    }
+                }
             }
 
             Animator.SetTrigger(k_AnimOnDamagedParameter);
