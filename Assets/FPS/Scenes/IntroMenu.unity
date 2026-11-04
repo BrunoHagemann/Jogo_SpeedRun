@@ -1970,6 +1970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.FPS.UI::Unity.FPS.UI.IntroMenuController
   m_VideoBackground: {fileID: 2160000012}
+  m_MusicVolume: 0.1
 --- !u!1 &2135173796
 GameObject:
   m_ObjectHideFlags: 0

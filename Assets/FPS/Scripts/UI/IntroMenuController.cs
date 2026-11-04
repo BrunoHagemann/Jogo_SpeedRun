@@ -14,6 +14,8 @@ namespace Unity.FPS.UI
     public class IntroMenuController : MonoBehaviour
     {
         [SerializeField] private RawImage m_VideoBackground;
+        [SerializeField, Range(0f, 1f), Tooltip("Volume do menu; a faixa de Cidade usa o Volume do AudioSource em GerenciadorDeAudio.")]
+        private float m_MusicVolume = 1f;
 
         private const string BackgroundVideoFileName = "MenuIniciaL01.mp4";
         private const string PlayVideoFileName = "Play.mp4";
@@ -33,6 +35,18 @@ namespace Unity.FPS.UI
         private bool m_PlaySequenceStarted;
         private bool m_LoadingVideoStarted;
         private bool m_MainSceneLoading;
+
+        private void Awake()
+        {
+            SceneMusicPlayer.SetMusicVolume(m_MusicVolume);
+        }
+
+        private void OnValidate()
+        {
+            m_MusicVolume = Mathf.Clamp01(m_MusicVolume);
+            if (Application.isPlaying)
+                SceneMusicPlayer.SetMusicVolume(m_MusicVolume);
+        }
 
         private void Start()
         {
@@ -186,6 +200,7 @@ namespace Unity.FPS.UI
                 return;
 
             m_PlaySequenceStarted = true;
+            SceneMusicPlayer.StopMusic();
             if (m_PlayButton != null)
                 m_PlayButton.interactable = false;
 
