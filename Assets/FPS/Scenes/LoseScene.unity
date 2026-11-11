@@ -946,7 +946,7 @@ GameObject:
   - component: {fileID: 1847275006}
   - component: {fileID: 1847275005}
   - component: {fileID: 1847275004}
-  - component: {fileID: 2938180001}
+  - component: {fileID: 990100003}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1017,7 +1017,7 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &2938180001
+--- !u!114 &990100003
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1026,9 +1026,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1847275003}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c70df25f3d7543a2a901f5b8e48f0d61, type: 3}
+  m_Script: {fileID: 11500000, guid: e842a4c35ad14da9b3cd5023e148a0cd, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Unity.FPS.UI::Unity.FPS.UI.IntroMenuController
+  m_EditorClassIdentifier: Unity.FPS.UI::Unity.FPS.UI.SceneBackgroundVideo
+  m_VideoFileName: LoseScene.mp4
   m_VideoBackground: {fileID: 0}
 --- !u!224 &1847275007
 RectTransform:
