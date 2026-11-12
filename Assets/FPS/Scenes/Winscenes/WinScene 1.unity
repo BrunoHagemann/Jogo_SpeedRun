@@ -333,7 +333,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: MainScene
+          m_StringArgument: SciFi
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &129299357
@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d73053268a2ae48bb9e7d4bf6419fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: MainScene
+  SceneName: SciFi
 --- !u!1 &134625305
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,7 +717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d73053268a2ae48bb9e7d4bf6419fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: SecondaryScene
+  SceneName: LunarLandscape3D
 --- !u!114 &647291690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -771,7 +771,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: MainScene
+          m_StringArgument: LunarLandscape3D
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &647291691
@@ -1113,7 +1113,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: MainScene
+          m_StringArgument: IntroMenu
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &986130592

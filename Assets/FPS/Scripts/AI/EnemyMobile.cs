@@ -67,7 +67,8 @@ namespace Unity.FPS.AI
             float moveSpeed = m_EnemyController.NavMeshAgent.velocity.magnitude;
 
             // Update animator speed parameter
-            Animator.SetFloat(k_AnimMoveSpeedParameter, moveSpeed);
+            if (Animator != null)
+                Animator.SetFloat(k_AnimMoveSpeedParameter, moveSpeed);
 
             // changing the pitch of the movement sound depending on the movement speed
             m_AudioSource.pitch = Mathf.Lerp(PitchDistortionMovementSpeed.Min, PitchDistortionMovementSpeed.Max,
@@ -133,7 +134,8 @@ namespace Unity.FPS.AI
 
         void OnAttack()
         {
-            Animator.SetTrigger(k_AnimAttackParameter);
+            if (Animator != null)
+                Animator.SetTrigger(k_AnimAttackParameter);
         }
 
         void OnDetectedTarget()
@@ -154,7 +156,8 @@ namespace Unity.FPS.AI
                 AudioUtility.CreateSFX(OnDetectSfx, transform.position, AudioUtility.AudioGroups.EnemyDetection, 1f);
             }
 
-            Animator.SetBool(k_AnimAlertedParameter, true);
+            if (Animator != null)
+                Animator.SetBool(k_AnimAlertedParameter, true);
         }
 
         void OnLostTarget()
@@ -170,7 +173,8 @@ namespace Unity.FPS.AI
                     OnDetectVfx[i].Stop();
             }
 
-            Animator.SetBool(k_AnimAlertedParameter, false);
+            if (Animator != null)
+                Animator.SetBool(k_AnimAlertedParameter, false);
         }
 
         void OnDamaged()
@@ -189,7 +193,8 @@ namespace Unity.FPS.AI
                 }
             }
 
-            Animator.SetTrigger(k_AnimOnDamagedParameter);
+            if (Animator != null)
+                Animator.SetTrigger(k_AnimOnDamagedParameter);
         }
     }
 }

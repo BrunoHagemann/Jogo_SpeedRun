@@ -9,29 +9,20 @@ EditorBuildSettings:
     path: Assets/FPS/Scenes/IntroMenu.unity
     guid: 56e3faabc5bb30f49a68bb8f1292f988
   - enabled: 1
-    path: Assets/FPS/Scenes/WinScene.unity
+    path: Assets/FPS/Scenes/Winscenes/WinScene.unity
     guid: 037d06fbede2b4041a843d9ee6fe750c
   - enabled: 1
     path: Assets/FPS/Scenes/LoseScene.unity
     guid: 72e5c65a45893714484002914e3fd521
   - enabled: 1
-    path: Assets/FPS/Scenes/WinScene 1.unity
+    path: Assets/FPS/Scenes/aaaaa.unity
     guid: 88f197babd229ea4493f292d559efb60
-  - enabled: 1
-    path: Assets/FPS/Scenes/WinScene 2.unity
-    guid: 30ef15fea4cee2e43978bd32152ae27a
-  - enabled: 1
-    path: Assets/FPS/Scenes/WinScene 3.unity
-    guid: 7d46091252fd2404e9595ad9a1b0dfa9
   - enabled: 1
     path: Assets/FPS/Scenes/SciFi.unity
     guid: a6096f87c0bb6ae47affc4d9c4af4beb
   - enabled: 1
-    path: Assets/FPS/Scenes/4Scene.unity
+    path: Assets/FPS/Scenes/SecondaryScene/4Scene.unity
     guid: ba6141b45d6e8d74497b3613713e358f
-  - enabled: 1
-    path: Assets/FPS/Scenes/3Scene.unity
-    guid: 9f2584b26f57875478c8fcd0ee17afd2
   - enabled: 1
     path: Assets/FPS/Scenes/Cidade.unity
     guid: 8e888d82c8fea064d8b59d3f3575399f
@@ -44,6 +35,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/FPS/Scenes/MenuDeFases.unity
     guid: fc4542f98311a5f45a9573b99fc61217
+  - enabled: 1
+    path: Assets/FPS/Scenes/Winscenes/WinScene 1.unity
+    guid: 691b6f6ea8710cb4c8f25ab0e09e6835
+  - enabled: 1
+    path: Assets/FPS/Scenes/Winscenes/WinSceneFinal.unity
+    guid: da9a0d06465f07544872ba754c0cf311
+  - enabled: 1
+    path: Assets/FPS/Scenes/LunarLandscape3D.unity
+    guid: f4021bc829b444148a3959ec85eeeceb
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f,
       type: 2}
