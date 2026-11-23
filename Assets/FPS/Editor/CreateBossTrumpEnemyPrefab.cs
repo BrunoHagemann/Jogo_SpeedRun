@@ -81,6 +81,8 @@ public static class CreateBossTrumpEnemyPrefab
             material.SetTexture("_BaseMap", texture);
         if (material.HasProperty("_MainTex"))
             material.SetTexture("_MainTex", texture);
+        if (material.HasProperty("_Cull"))
+            material.SetFloat("_Cull", 0f); // Keep the thin quad visible from either side.
         EditorUtility.SetDirty(material);
         return material;
     }
