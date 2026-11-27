@@ -398,6 +398,7 @@ GameObject:
   - component: {fileID: 134625306}
   - component: {fileID: 134625308}
   - component: {fileID: 134625307}
+  - component: {fileID: 134625309}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -446,8 +447,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Play Again
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 75063828274bdb145a55f6dd2f22e8b2, type: 2}
-  m_sharedMaterial: {fileID: 21098970014090698, guid: 75063828274bdb145a55f6dd2f22e8b2,
+  m_fontAsset: {fileID: 11400000, guid: b52eb4c9a138b1244b7c7691bfd3094a, type: 2}
+  m_sharedMaterial: {fileID: 3719815022204201973, guid: b52eb4c9a138b1244b7c7691bfd3094a,
     type: 2}
   m_fontSharedMaterials:
   - {fileID: 21098970014090698, guid: 75063828274bdb145a55f6dd2f22e8b2, type: 2}
@@ -526,6 +527,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 134625305}
   m_CullTransparentMesh: 0
+--- !u!114 &134625309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134625305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c43eed9d4de45634c985297462fa2416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: fps.UI::Unity.FPS.UI.MenuButtonHoverAnimator
+  m_Label: {fileID: 0}
+  m_HoverScale: 1.045
+  m_GlowOpacity: 0.38
+  m_GlowDistance: 1.5
+  m_TransitionDuration: 0.18
 --- !u!1 &603518593
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,6 +555,7 @@ GameObject:
   - component: {fileID: 603518594}
   - component: {fileID: 603518596}
   - component: {fileID: 603518595}
+  - component: {fileID: 603518597}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -585,8 +604,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Menu
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 75063828274bdb145a55f6dd2f22e8b2, type: 2}
-  m_sharedMaterial: {fileID: 21098970014090698, guid: 75063828274bdb145a55f6dd2f22e8b2,
+  m_fontAsset: {fileID: 11400000, guid: b52eb4c9a138b1244b7c7691bfd3094a, type: 2}
+  m_sharedMaterial: {fileID: 3719815022204201973, guid: b52eb4c9a138b1244b7c7691bfd3094a,
     type: 2}
   m_fontSharedMaterials:
   - {fileID: 21098970014090698, guid: 75063828274bdb145a55f6dd2f22e8b2, type: 2}
@@ -612,7 +631,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
+  m_fontSize: 24
   m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -665,6 +684,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 603518593}
   m_CullTransparentMesh: 0
+--- !u!114 &603518597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603518593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c43eed9d4de45634c985297462fa2416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: fps.UI::Unity.FPS.UI.MenuButtonHoverAnimator
+  m_Label: {fileID: 0}
+  m_HoverScale: 1.045
+  m_GlowOpacity: 0.38
+  m_GlowDistance: 1.5
+  m_TransitionDuration: 0.18
 --- !u!1 &647291687
 GameObject:
   m_ObjectHideFlags: 0
