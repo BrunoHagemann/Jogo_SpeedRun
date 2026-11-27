@@ -941,7 +941,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Faze - 3
+  m_text: 'Fase - 3
 
 '
   m_isRightToLeft: 0
