@@ -398,6 +398,7 @@ GameObject:
   - component: {fileID: 134625306}
   - component: {fileID: 134625308}
   - component: {fileID: 134625307}
+  - component: {fileID: 134625309}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -526,6 +527,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 134625305}
   m_CullTransparentMesh: 0
+--- !u!114 &134625309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134625305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c43eed9d4de45634c985297462fa2416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: fps.UI::Unity.FPS.UI.MenuButtonHoverAnimator
+  m_Label: {fileID: 0}
+  m_HoverScale: 1.045
+  m_GlowOpacity: 0.38
+  m_GlowDistance: 1.5
+  m_TransitionDuration: 0.18
 --- !u!1 &603518593
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,6 +555,7 @@ GameObject:
   - component: {fileID: 603518594}
   - component: {fileID: 603518596}
   - component: {fileID: 603518595}
+  - component: {fileID: 603518597}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -665,6 +684,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 603518593}
   m_CullTransparentMesh: 0
+--- !u!114 &603518597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603518593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c43eed9d4de45634c985297462fa2416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: fps.UI::Unity.FPS.UI.MenuButtonHoverAnimator
+  m_Label: {fileID: 0}
+  m_HoverScale: 1.045
+  m_GlowOpacity: 0.38
+  m_GlowDistance: 1.5
+  m_TransitionDuration: 0.18
 --- !u!1 &647291687
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,6 +1215,7 @@ GameObject:
   - component: {fileID: 1079574188}
   - component: {fileID: 1079574190}
   - component: {fileID: 1079574189}
+  - component: {fileID: 1079574191}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1307,6 +1344,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079574187}
   m_CullTransparentMesh: 0
+--- !u!114 &1079574191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079574187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c43eed9d4de45634c985297462fa2416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: fps.UI::Unity.FPS.UI.MenuButtonHoverAnimator
+  m_Label: {fileID: 0}
+  m_HoverScale: 1.045
+  m_GlowOpacity: 0.38
+  m_GlowDistance: 1.5
+  m_TransitionDuration: 0.18
 --- !u!1 &1786442788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,6 +1588,7 @@ GameObject:
   - component: {fileID: 1847275004}
   - component: {fileID: 1847275008}
   - component: {fileID: 990100001}
+  - component: {fileID: 1847275009}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1643,6 +1698,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VictoryTimeDisplay
   lastTimeText: {fileID: 1786442789}
   bestTimeText: {fileID: 0}
+--- !u!114 &1847275009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847275003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c70df25f3d7543a2a901f5b8e48f0d61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: fps.UI::Unity.FPS.UI.IntroMenuController
+  m_VideoBackground: {fileID: 0}
+  m_MusicVolume: 0.03
 --- !u!1 &1898307046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,13 +1782,13 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
+  m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 0.16356981, g: 1, b: 0, a: 1}
+    topRight: {r: 0.20435986, g: 0.5943396, b: 0, a: 1}
+    bottomLeft: {r: 0, g: 0, b: 0, a: 1}
+    bottomRight: {r: 0, g: 0, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0

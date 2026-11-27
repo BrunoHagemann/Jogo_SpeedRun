@@ -9,6 +9,11 @@ namespace Unity.FPS.UI
     public class SceneMusicPlayer : MonoBehaviour
     {
         private const string IntroMenuSceneName = "IntroMenu";
+        private const string LoseSceneName = "LoseScene";
+        private const string WinSceneName = "WinScene";
+        private const string WinSceneOneName = "WinScene 1";
+        private const string WinSceneFinalName = "WinSceneFinal";
+        private const string LevelMenuSceneName = "MenuDeFases";
         private const string CitySceneName = "Cidade";
         private const string CityAudioObjectName = "GerenciadorDeAudio";
         private const string MenuMusicResourcePath = "Musicas/Menu";
@@ -160,7 +165,12 @@ namespace Unity.FPS.UI
 
         private static string GetMusicResourcePath(string sceneName)
         {
-            if (sceneName == IntroMenuSceneName)
+            if (sceneName == IntroMenuSceneName
+                || sceneName == LoseSceneName
+                || sceneName == WinSceneName
+                || sceneName == WinSceneOneName
+                || sceneName == WinSceneFinalName
+                || sceneName == LevelMenuSceneName)
                 return MenuMusicResourcePath;
 
             return null;

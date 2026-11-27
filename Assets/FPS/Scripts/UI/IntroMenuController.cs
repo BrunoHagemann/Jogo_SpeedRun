@@ -50,6 +50,9 @@ namespace Unity.FPS.UI
 
         private void Start()
         {
+            if (SceneManager.GetActiveScene().name != "IntroMenu")
+                return;
+
             m_MenuCanvas = GetComponentInParent<Canvas>();
             if (m_MenuCanvas == null)
                 m_MenuCanvas = FindObjectOfType<Canvas>();
